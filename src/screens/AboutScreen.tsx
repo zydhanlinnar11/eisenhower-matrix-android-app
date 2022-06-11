@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Image,
+  Linking,
   ScrollView,
   StatusBar,
   StyleSheet,
@@ -14,6 +15,7 @@ import {useUserDispatch, useUserState} from '../providers/UserProvider';
 import Icon from 'react-native-vector-icons/Ionicons';
 import CustomButton from '../components/CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import showErrorToast from '../utils/ShowErrorToast';
 
 const AboutScreen = () => {
   const userState = useUserState();
@@ -21,8 +23,19 @@ const AboutScreen = () => {
 
   const logoutHandler = async () => {
     try {
+      const url = new URL('https://zydhan.com/auth/logout');
+      url.searchParams.append(
+        'from',
+        'com.zydhan.android.eisenhowermatrix://auth',
+      );
       await AsyncStorage.removeItem('@storage_token');
       userDispatch({state: 'unauthenticated'});
+      const canOpenUrl = await Linking.canOpenURL(url.toJSON());
+      if (!canOpenUrl) {
+        showErrorToast();
+        return;
+      }
+      Linking.openURL(url.toJSON());
     } catch (e) {
       ToastAndroid.show('An error occured', ToastAndroid.SHORT);
     }
