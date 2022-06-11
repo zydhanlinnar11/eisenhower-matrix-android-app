@@ -8,7 +8,7 @@ export default class TaskRepository {
       .where('user_id', '==', userId)
       .orderBy('due_date', 'desc')
       .get();
-    const tasks = tasksRef.docs.map(task => task.data() as Task);
+    const tasks = tasksRef.docs.map(task => this.convertToTask(task.data()));
     return tasks;
   };
 
@@ -22,7 +22,16 @@ export default class TaskRepository {
       .where('category_id', '==', categoryId)
       .orderBy('due_date', 'desc')
       .get();
-    const tasks = tasksRef.docs.map(task => task.data() as Task);
+    const tasks = tasksRef.docs.map(task => this.convertToTask(task.data()));
     return tasks;
+  };
+
+  private convertToTask = (taskDoc: any) => {
+    const task: Task = taskDoc;
+    const second: number = (task.due_date as any).seconds;
+    task.due_date = new Date(0);
+    task.due_date.setUTCSeconds(second);
+
+    return task;
   };
 }

@@ -8,6 +8,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AboutScreen from './AboutScreen';
+import TasksScreen from './TasksScreen';
 
 const config = {
   screens: {
@@ -50,6 +51,19 @@ const PrivateScreenWithTabs = () => (
         ...privateScreenWithTabsOption,
         tabBarIcon: ({focused, color, size}) => (
           <Icon name="list-outline" size={size} color={color}></Icon>
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Tasks"
+      component={TasksScreen}
+      options={{
+        ...privateScreenWithTabsOption,
+        tabBarIcon: ({focused, color, size}) => (
+          <Icon
+            name="checkmark-circle-outline"
+            size={size}
+            color={color}></Icon>
         ),
       }}
     />
