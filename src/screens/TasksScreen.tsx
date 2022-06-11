@@ -1,5 +1,5 @@
 import React, {FC, useCallback, useState} from 'react';
-import {StatusBar, StyleSheet} from 'react-native';
+import {ScrollView, StatusBar, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useUserState} from '../providers/UserProvider';
 import showErrorToast from '../utils/ShowErrorToast';
@@ -31,9 +31,11 @@ const TasksScreen: FC<{navigation: NavigationProp<any>}> = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle={'dark-content'} />
-      {tasks.map(task => (
-        <TaskItem task={task} key={task.id} navigation={navigation} />
-      ))}
+      <ScrollView>
+        {tasks.map(task => (
+          <TaskItem task={task} key={task.id} navigation={navigation} />
+        ))}
+      </ScrollView>
     </SafeAreaView>
   );
 };
