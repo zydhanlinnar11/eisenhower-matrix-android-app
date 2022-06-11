@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {Text} from 'react-native';
+import {Alert, Button, Text, View} from 'react-native';
 import CategoriesScreen from './CategoriesScreen';
 import HomeScreen from './HomeScreen';
 import {useUserState} from '../providers/UserProvider';
@@ -11,6 +11,7 @@ import AboutScreen from './AboutScreen';
 import TasksScreen from './TasksScreen';
 import TasksByCategoryScreen from './TasksByCategoryScreen';
 import TaskScreen from './TaskScreen';
+import CategorySelectScreen from './CategorySelectScreen';
 
 const config = {
   screens: {
@@ -59,7 +60,7 @@ const PrivateScreenWithTabs = () => (
     <Tab.Screen
       name="Tasks"
       component={TasksScreen}
-      options={{
+      options={({navigation, route}) => ({
         ...privateScreenWithTabsOption,
         tabBarIcon: ({focused, color, size}) => (
           <Icon
@@ -67,7 +68,16 @@ const PrivateScreenWithTabs = () => (
             size={size}
             color={color}></Icon>
         ),
-      }}
+        headerRight: () => (
+          <View style={{marginRight: 16}}>
+            <Button
+              onPress={() => navigation.navigate('Task')}
+              title="+"
+              color="#000"
+            />
+          </View>
+        ),
+      })}
     />
     <Tab.Screen
       name="About"
@@ -108,6 +118,16 @@ const Navigation = () => {
             <Stack.Screen
               name="Task"
               component={TaskScreen}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#000',
+                },
+                headerTintColor: 'white',
+              }}
+            />
+            <Stack.Screen
+              name="CategorySelect"
+              component={CategorySelectScreen}
               options={{
                 headerStyle: {
                   backgroundColor: '#000',

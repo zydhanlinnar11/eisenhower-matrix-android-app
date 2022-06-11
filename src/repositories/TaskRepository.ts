@@ -32,4 +32,37 @@ export default class TaskRepository {
 
     return task;
   };
+
+  private getRefById = async (id: string) => {
+    const refs = await firestore()
+      .collection('tasks')
+      .where('id', '==', id)
+      .limit(1)
+      .get();
+
+    if (refs.docs.length !== 1) return null;
+    return refs.docs[0];
+  };
+
+  delete = async (task: Task) => {
+    const ref = await this.getRefById(task.id);
+    if (!ref) return;
+    await firestore().collection('tasks').doc(ref.id).delete();
+  };
+
+  update = async (task: Task) => {
+    task.due_date = firestore.Timestamp.fromDate(
+      new Date(task.due_date),
+    ) as any;
+    const ref = await this.getRefById(task.id);
+    if (!ref) return;
+    await firestore().collection('tasks').doc(ref.id).update(task);
+  };
+
+  save = async (task: Task) => {
+    task.due_date = firestore.Timestamp.fromDate(
+      new Date(task.due_date),
+    ) as any;
+    await firestore().collection('tasks').add(task);
+  };
 }
