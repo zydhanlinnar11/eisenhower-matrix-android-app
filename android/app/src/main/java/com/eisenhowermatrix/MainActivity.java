@@ -1,4 +1,4 @@
-package com.eisenhowermatrix;
+package com.zydhan.android.eisenhowermatrix;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

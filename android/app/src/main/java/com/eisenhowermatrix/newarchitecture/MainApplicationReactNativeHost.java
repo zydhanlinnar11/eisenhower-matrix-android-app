@@ -1,4 +1,4 @@
-package com.eisenhowermatrix.newarchitecture;
+package com.zydhan.android.eisenhowermatrix.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.EmptyReactNativeConfig;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.eisenhowermatrix.BuildConfig;
-import com.eisenhowermatrix.newarchitecture.components.MainComponentsRegistry;
-import com.eisenhowermatrix.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.zydhan.android.eisenhowermatrix.BuildConfig;
+import com.zydhan.android.eisenhowermatrix.newarchitecture.components.MainComponentsRegistry;
+import com.zydhan.android.eisenhowermatrix.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

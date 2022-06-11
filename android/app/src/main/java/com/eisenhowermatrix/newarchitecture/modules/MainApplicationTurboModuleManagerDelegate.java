@@ -1,4 +1,4 @@
-package com.eisenhowermatrix.newarchitecture.modules;
+package com.zydhan.android.eisenhowermatrix.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
