@@ -229,6 +229,14 @@ android {
             keyAlias 'androiddebugkey'
             keyPassword 'android'
         }
+        release {
+            if (project.hasProperty('ZYDHAN_STORE_FILE')) {
+                storeFile file(ZYDHAN_STORE_FILE)
+                storePassword ZYDHAN_STORE_PASSWORD
+                keyAlias ZYDHAN_KEY_ALIAS
+                keyPassword ZYDHAN_KEY_PASSWORD
+            }
+        }
     }
     buildTypes {
         debug {
@@ -240,6 +248,7 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
 
