@@ -1,12 +1,12 @@
 import React from 'react';
-import {NavigationContainer, NavigationProp} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {Button, Text, View} from 'react-native';
 import CategoriesScreen from './CategoriesScreen';
 import HomeScreen from './HomeScreen';
 import {useUserState} from '../providers/UserProvider';
-
-const Stack = createNativeStackNavigator();
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const config = {
   screens: {
@@ -21,24 +21,38 @@ const linking = {
   config,
 };
 
-const privateScreen = (
-  <>
-    <Stack.Screen
+const privateScreenWithTabsOption = {
+  headerStyle: {
+    backgroundColor: '#000',
+  },
+  headerTitleStyle: {
+    color: '#fff',
+  },
+};
+
+const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
+
+const PrivateScreenWithTabs = () => (
+  <Tab.Navigator
+    screenOptions={({route}) => ({
+      tabBarActiveTintColor: 'white',
+      tabBarInactiveTintColor: 'gray',
+      tabBarStyle: {
+        backgroundColor: '#000',
+      },
+    })}>
+    <Tab.Screen
       name="Categories"
       component={CategoriesScreen}
-      options={{headerShown: false}}
+      options={{
+        ...privateScreenWithTabsOption,
+        tabBarIcon: ({focused, color, size}) => (
+          <Icon name="list-outline" size={size} color={color}></Icon>
+        ),
+      }}
     />
-  </>
-);
-
-const publicScreen = (
-  <>
-    <Stack.Screen
-      name="Home"
-      component={HomeScreen}
-      options={{headerShown: false}}
-    />
-  </>
+  </Tab.Navigator>
 );
 
 const Navigation = () => {
@@ -47,7 +61,19 @@ const Navigation = () => {
   return (
     <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
       <Stack.Navigator>
-        {state === 'authenticated' ? privateScreen : publicScreen}
+        {state === 'authenticated' ? (
+          <Stack.Screen
+            name="PrivateScreenWithTabs"
+            component={PrivateScreenWithTabs}
+            options={{headerShown: false}}
+          />
+        ) : (
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{headerShown: false}}
+          />
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
