@@ -1,12 +1,13 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {Button, Text, View} from 'react-native';
+import {Text} from 'react-native';
 import CategoriesScreen from './CategoriesScreen';
 import HomeScreen from './HomeScreen';
 import {useUserState} from '../providers/UserProvider';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
+import AboutScreen from './AboutScreen';
 
 const config = {
   screens: {
@@ -49,6 +50,16 @@ const PrivateScreenWithTabs = () => (
         ...privateScreenWithTabsOption,
         tabBarIcon: ({focused, color, size}) => (
           <Icon name="list-outline" size={size} color={color}></Icon>
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="About"
+      component={AboutScreen}
+      options={{
+        ...privateScreenWithTabsOption,
+        tabBarIcon: ({focused, color, size}) => (
+          <Icon name="person-outline" size={size} color={color}></Icon>
         ),
       }}
     />
