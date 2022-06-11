@@ -9,6 +9,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AboutScreen from './AboutScreen';
 import TasksScreen from './TasksScreen';
+import TasksByCategoryScreen from './TasksByCategoryScreen';
+import TaskScreen from './TaskScreen';
 
 const config = {
   screens: {
@@ -87,11 +89,33 @@ const Navigation = () => {
     <NavigationContainer linking={linking} fallback={<Text>Loading...</Text>}>
       <Stack.Navigator>
         {state === 'authenticated' ? (
-          <Stack.Screen
-            name="PrivateScreenWithTabs"
-            component={PrivateScreenWithTabs}
-            options={{headerShown: false}}
-          />
+          <>
+            <Stack.Screen
+              name="PrivateScreenWithTabs"
+              component={PrivateScreenWithTabs}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="TasksByCategory"
+              component={TasksByCategoryScreen}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#000',
+                },
+                headerTintColor: 'white',
+              }}
+            />
+            <Stack.Screen
+              name="Task"
+              component={TaskScreen}
+              options={{
+                headerStyle: {
+                  backgroundColor: '#000',
+                },
+                headerTintColor: 'white',
+              }}
+            />
+          </>
         ) : (
           <Stack.Screen
             name="Home"

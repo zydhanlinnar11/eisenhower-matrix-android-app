@@ -1,7 +1,7 @@
 type Task = {
   id: string;
   category_id: number;
-  due_date: Date;
+  due_date: string;
   title: string;
   user_id: string;
 };

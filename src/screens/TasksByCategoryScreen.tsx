@@ -1,16 +1,30 @@
-import React, {FC, useCallback, useState} from 'react';
+import React, {FC, useCallback, useLayoutEffect, useState} from 'react';
 import {StatusBar, StyleSheet} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useUserState} from '../providers/UserProvider';
 import showErrorToast from '../utils/ShowErrorToast';
-import {NavigationProp, useFocusEffect} from '@react-navigation/native';
+import {
+  NavigationProp,
+  RouteProp,
+  useFocusEffect,
+} from '@react-navigation/native';
 import TaskRepository from '../repositories/TaskRepository';
 import Task from '../types/Task';
 import TaskItem from '../components/TaskItem';
+import Category from '../types/Category';
 
-const TasksScreen: FC<{navigation: NavigationProp<any>}> = ({navigation}) => {
+type Props = {
+  route: RouteProp<{params: {category: Category}}, 'params'>;
+  navigation: NavigationProp<any>;
+};
+
+const TasksByCategoryScreen: FC<Props> = ({navigation, route}) => {
   const userState = useUserState();
   const [tasks, setTasks] = useState<Task[]>([]);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({title: route.params.category.name});
+  }, [route.params.category]);
 
   useFocusEffect(
     useCallback(() => {
@@ -22,10 +36,10 @@ const TasksScreen: FC<{navigation: NavigationProp<any>}> = ({navigation}) => {
 
       const taskRepository = new TaskRepository();
       taskRepository
-        .getAllTasksByUserId(user.id)
+        .getByUserIdAndCategoryId(user.id, route.params.category.id)
         .then(tasks => setTasks(tasks))
         .catch(showErrorToast);
-    }, []),
+    }, [route.params.category]),
   );
 
   return (
@@ -47,4 +61,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TasksScreen;
+export default TasksByCategoryScreen;

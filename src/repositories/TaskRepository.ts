@@ -12,10 +12,7 @@ export default class TaskRepository {
     return tasks;
   };
 
-  getAllTasksByUserIdAndCategoryId = async (
-    userId: string,
-    categoryId: number,
-  ) => {
+  getByUserIdAndCategoryId = async (userId: string, categoryId: number) => {
     const tasksRef = await firestore()
       .collection('tasks')
       .where('user_id', '==', userId)
@@ -29,8 +26,9 @@ export default class TaskRepository {
   private convertToTask = (taskDoc: any) => {
     const task: Task = taskDoc;
     const second: number = (task.due_date as any).seconds;
-    task.due_date = new Date(0);
-    task.due_date.setUTCSeconds(second);
+    const date = new Date(0);
+    date.setUTCSeconds(second);
+    task.due_date = date.toISOString();
 
     return task;
   };
