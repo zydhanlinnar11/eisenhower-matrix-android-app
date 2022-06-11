@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "708249969655",
+    "project_id": "tugas-teknologi-bermuara",
+    "storage_bucket": "tugas-teknologi-bermuara.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:708249969655:android:b66e41639273adfd4984f2",
+        "android_client_info": {
+          "package_name": "com.zydhan.android.eisenhowermatrix"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "708249969655-27gu522t14j8n52ssh19tjcpgpi0ao1v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtR9knqp_bdVbopk38o8Yuh2_s3gQpMMA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "708249969655-27gu522t14j8n52ssh19tjcpgpi0ao1v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
